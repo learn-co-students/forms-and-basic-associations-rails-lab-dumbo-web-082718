@@ -30,8 +30,10 @@ class Song < ActiveRecord::Base
 
    def note_contents=(notes)
     notes.each do |note|
-      self.notes.build(content: note)
+      if note.strip != ""
+        self.notes.build(content: note)
 # => #<Note id: nil, name: "song title", song_id: 1>
+      end
     end
    end
 
