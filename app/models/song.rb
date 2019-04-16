@@ -2,6 +2,7 @@ class Song < ActiveRecord::Base
   # add associations here
   belongs_to :artist
   belongs_to :genre
+  has_many :notes
 
   def artist_name=(artist)
        self.artist = Artist.find_or_create_by(name: artist)
@@ -27,17 +28,28 @@ class Song < ActiveRecord::Base
      end
   end
 
-   def note_contents=(note)
-     notes = []
-    notes <<  Note.find_or_create_by(content: note)
+   def note_contents=(notes)
+    notes.each do |note|
+      self.notes.build(title: self.title)
+# => #<Note id: nil, name: "song title", song_id: 1>
+    end
    end
 
    def note_contents
-      if self.note.nil?
-        nil
-      else
-        self.note.content
-      end
+     
+     self.notes.each do |note|
+       if note.content.nil?
+         nil
+       else
+         note.content
+       end
+     end
+
+      # if self.notes.nil?
+      #   nil
+      # else
+      #   self.notes.content
+      # end
    end
 
 end
