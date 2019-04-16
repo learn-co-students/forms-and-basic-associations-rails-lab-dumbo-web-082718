@@ -8,10 +8,10 @@ class Song < ActiveRecord::Base
   end
 
   def artist_name
-     if Note.song.artist.nil?
+     if self.artist.nil?
        nil
      else
-       Note.song.artist.name
+       self.artist.name
      end
   end
 
