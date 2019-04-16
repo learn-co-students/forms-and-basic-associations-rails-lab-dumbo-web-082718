@@ -30,14 +30,14 @@ class Song < ActiveRecord::Base
 
    def note_contents=(notes)
     notes.each do |note|
-      self.notes.build(title: self.title)
+      self.notes.build(content: note)
 # => #<Note id: nil, name: "song title", song_id: 1>
     end
    end
 
    def note_contents
-     
-     self.notes.each do |note|
+
+     self.notes.map do |note|
        if note.content.nil?
          nil
        else
